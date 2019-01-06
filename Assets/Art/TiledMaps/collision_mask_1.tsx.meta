@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: c9a32d5aa1c07684594b598015f398d3
+ScriptedImporter:
+  fileIDToRecycleName:
+    2800000: Atlas_collision_mask_1_1
+    11400000: _TilesetScriptObject
+    11400002: _superAsset
+    11400004: Tile_collision_mask_1_1
+    21300000: Sprite_collision_mask_1_1
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: cc34d0f3dc257a442819830b408c5322, type: 3}
+  errors: []
+  warnings: []
+  missingSortingLayers: []
+  missingLayers: []
+  pixelsPerUnit: 100
+  edgesPerEllipse: 32
+  useSpriteAtlas: 1
+  atlasWidth: 2048
+  atlasHeight: 2048
