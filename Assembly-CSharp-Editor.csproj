@@ -228,11 +228,11 @@
     <Reference Include="Unity.PackageManagerUI.Editor">
       <HintPath>C:/Users/tal19/Documents/GitHub/TLSC-RPG/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.TextMeshPro">
-      <HintPath>C:/Users/tal19/Documents/GitHub/TLSC-RPG/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
       <HintPath>C:/Users/tal19/Documents/GitHub/TLSC-RPG/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.TextMeshPro">
+      <HintPath>C:/Users/tal19/Documents/GitHub/TLSC-RPG/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.DataPrivacy">
       <HintPath>C:/Users/tal19/Documents/GitHub/TLSC-RPG/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>

@@ -9,12 +9,14 @@ public class PlayerControls : MonoBehaviour
     private bool playerMoving;
     private Vector2 lastMove;
     private Animator anim;
+    private Rigidbody2D rb;
 
 
 	// Use this for initialization
 	void Start ()
     {
         anim = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
 	}
 	
 	// Update is called once per frame
@@ -34,7 +36,8 @@ public class PlayerControls : MonoBehaviour
         }
 
         //Vector3 is made of 3 values: x, y, z. Z-axis isn't used in a 2D game thus can be left blank or have 0f.
-        transform.Translate(new Vector3(moveHorizontal, moveVertical, 0f));
+        rb.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * moveSpeed, Input.GetAxisRaw("Vertical") * moveSpeed);
+        //transform.Translate(new Vector3(moveHorizontal, moveVertical, 0f));
 
         //Set the animator's MoveX and MoveY parameters to the player's input, also update the playing moving boolean
         anim.SetFloat("MoveX", Input.GetAxisRaw("Horizontal"));

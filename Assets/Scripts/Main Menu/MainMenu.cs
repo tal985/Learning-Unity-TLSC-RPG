@@ -8,7 +8,7 @@ public class MainMenu : MonoBehaviour
     public void PlayGame()
     {
         GameInfo.NewGame();
-        SceneManager.LoadScene("1_Overworld");
+        SceneManager.LoadScene(1);
     }
 
     public void QuitGame()
