@@ -7,10 +7,10 @@ public class CombatTriggerManager : MonoBehaviour
 
     private void Start()
     {
-        //anim = GetComponent<Animation>();
+
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.name == "MC_Player")
         {
@@ -18,7 +18,5 @@ public class CombatTriggerManager : MonoBehaviour
             //anim.Play("fade_out");
             SceneManager.LoadScene(2);
         }
-
-
     }
 }

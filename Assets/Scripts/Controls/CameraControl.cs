@@ -20,6 +20,8 @@ public class CameraControl : MonoBehaviour
     {
         //Z-Axis unchanged as it should remain the camera's default -10; cameraSpeed is adjusted by the deltaTime
         targetPos = new Vector3(followTarget.transform.position.x, followTarget.transform.position.y, transform.position.z);
+        //targetPos = followTarget.transform.position;
         transform.position = Vector3.Lerp(transform.position, targetPos, cameraSpeed * Time.deltaTime);
+        
 	}
 }

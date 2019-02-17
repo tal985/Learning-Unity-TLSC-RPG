@@ -6,7 +6,7 @@ public class PlayerControls : MonoBehaviour
 {
 
     public float moveSpeed;
-    private bool playerMoving;
+    private bool isMoving;
     private Vector2 lastMove;
     private Animator anim;
     private Rigidbody2D rb;
@@ -22,7 +22,7 @@ public class PlayerControls : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        playerMoving = false;
+        isMoving = false;
 
         //GetAxisRaw will return a value of -1 for left, 0 for none, and 1 for right.
         float moveHorizontal = Input.GetAxisRaw("Horizontal") * moveSpeed * Time.deltaTime;
@@ -31,7 +31,7 @@ public class PlayerControls : MonoBehaviour
         //Multiplying by deltaTime didn't change the direction
         if (moveHorizontal != 0 || moveVertical != 0)
         {
-            playerMoving = true;
+            isMoving = true;
             lastMove = new Vector2(moveHorizontal, moveVertical);
         }
 
@@ -42,7 +42,7 @@ public class PlayerControls : MonoBehaviour
         //Set the animator's MoveX and MoveY parameters to the player's input, also update the playing moving boolean
         anim.SetFloat("MoveX", Input.GetAxisRaw("Horizontal"));
         anim.SetFloat("MoveY", Input.GetAxisRaw("Vertical"));
-        anim.SetBool("PlayerMoving", playerMoving);
+        anim.SetBool("IsMoving", isMoving);
         anim.SetFloat("LastMoveX", lastMove.x);
         anim.SetFloat("LastMoveY", lastMove.y);
     }

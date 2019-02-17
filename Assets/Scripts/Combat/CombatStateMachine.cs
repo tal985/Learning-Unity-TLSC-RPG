@@ -6,12 +6,12 @@ using UnityEngine.UI;
 public class CombatStateMachine : MonoBehaviour
 {
     public static BattleStates currentState;
-    //private BattleStateStart battleStateScript = new BattleStateStart();
+    public GameObject enemy;
     private bool mainCombatMenu = true, hasClicked = false;
     private int difference = 0, playerAtk = -1, enemyAtk = -1;
     private Slider pSlider, eSlider;
     private BaseEnemy newEnemy = new BaseEnemy();
-    private string[] enemyNames = new string[] { "Wojack Horseman", "Wojak the Feels Guy", "Anon", "Definite Not Pepe" };
+    //private string[] enemyNames = new string[] { "Wojack Horseman", "Wojak the Feels Guy", "Anon", "Definite Not Pepe" };
 
     public enum BattleStates
     {
@@ -26,7 +26,8 @@ public class CombatStateMachine : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-        currentState = BattleStates.START;	
+        currentState = BattleStates.START;
+        RenderEnemy();
 	}
 	
 	// Update is called once per frame
@@ -172,7 +173,8 @@ public class CombatStateMachine : MonoBehaviour
     {
         newEnemy.PlayerClass = new BaseEnemyClass();
         newEnemy.Level = Random.Range(GameInfo.PlayerLevel - 2, GameInfo.PlayerLevel + 3);
-        newEnemy.PlayerClass.CharClassName = enemyNames[Random.Range(0, enemyNames.Length)];
+        newEnemy.PlayerClass.CharClassName = GameInfo.currentEnemy;
+        Debug.Log(newEnemy.PlayerClass.CharClassName);
         newEnemy.PlayerClass.HealthPoints = Random.Range(0, 3) + 15;
         newEnemy.Chp = newEnemy.PlayerClass.HealthPoints;
         newEnemy.PlayerClass.MemePoints = Random.Range(0, 3) + 15;
@@ -180,5 +182,27 @@ public class CombatStateMachine : MonoBehaviour
         newEnemy.MovesetIDs = new int[] { 0 };
     }
     
-    
+    //Render enemy
+    private void RenderEnemy()
+    {
+        if (GameInfo.currentEnemy != null)
+            enemy.GetComponent<Animator>().Play(GameInfo.currentEnemy);
+        else
+            enemy.GetComponent<Animator>().Play("PepeDefault"); 
+        /*
+        switch (GameInfo.currentEnemy)
+        {
+            case ("Hyoundag"):
+            {
+                temp.Play("Hyoundag");
+                break;
+            }
+            default:
+            {
+                temp.Play("PepeDefault");
+                break;
+            }
+        }
+        */
+    }
 }

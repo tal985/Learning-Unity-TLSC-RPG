@@ -23,6 +23,7 @@ public class GameInfo : MonoBehaviour
     public static int Chp { get; set; }
     public static int Cmp { get; set; }
     public static int[] MovesetIDs { get; set; }
+    public static string currentEnemy = null;
 
     //Initialize the variables for a new game
     public static void NewGame()
