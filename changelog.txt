@@ -1,0 +1,6 @@
+2/24/2019
+Fixed movement animations
+Basic interactable
+
+TODO:
+Readjust trigger system to enemy or player controls

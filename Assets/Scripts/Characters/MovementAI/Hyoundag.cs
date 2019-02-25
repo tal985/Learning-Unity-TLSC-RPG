@@ -37,18 +37,29 @@ public class Hyoundag : MonoBehaviour
             isMoving = true;
             this.transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
         }
-        else if (distance <= 1.25)
+        else if (distance <= 1)
         {
+            /*
             Debug.Log("TRIGGERED");
             GameInfo.currentEnemy = mobName;
             SceneManager.LoadScene(2);
+            */
         }
-
-
 
         anim.SetBool("isMoving", isMoving);
         anim.SetFloat("moveX", x);
         anim.SetFloat("moveY", y);
-  
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.name == "MC_Player")
+        {
+            Debug.Log("Collided with MC!");
+            /*
+            GameInfo.currentEnemy = mobName;
+            SceneManager.LoadScene(2);
+            */
+        }
     }
 }

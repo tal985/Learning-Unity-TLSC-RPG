@@ -11,9 +11,11 @@ public class PlayerControls : MonoBehaviour
     private Animator anim;
     private Rigidbody2D rb;
 
+    public GameObject curObj = null;
 
-	// Use this for initialization
-	void Start ()
+
+    // Use this for initialization
+    void Start ()
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
@@ -45,5 +47,31 @@ public class PlayerControls : MonoBehaviour
         anim.SetBool("IsMoving", isMoving);
         anim.SetFloat("LastMoveX", lastMove.x);
         anim.SetFloat("LastMoveY", lastMove.y);
+
+        //On the press of the Interact button (Default: E), interact with object if possible
+        if (Input.GetButtonDown("Interact") && curObj && curObj.GetComponent<Furnace>().isInteractable)
+        {
+            curObj.SendMessage("Interact");
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("Collided");
+
+        if(collision.gameObject.tag.Equals("Interactable"))
+        {
+            Debug.Log("Interactable");
+            curObj = collision.gameObject;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.gameObject == curObj)
+        {
+            Debug.Log("Left the range");
+            curObj = null;
+        }
     }
 }
