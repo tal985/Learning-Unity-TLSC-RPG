@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class CombatStateMachine : MonoBehaviour
@@ -27,7 +28,6 @@ public class CombatStateMachine : MonoBehaviour
     void Start ()
     {
         currentState = BattleStates.START;
-        RenderEnemy();
 	}
 	
 	// Update is called once per frame
@@ -40,8 +40,10 @@ public class CombatStateMachine : MonoBehaviour
             case (BattleStates.START):
             {
                 //Remove newgame line later
-                GameInfo.NewGame();
+                if(GameInfo.abilityDict.Count == 0)
+                    GameInfo.NewGame();
                 CreateNewEnemy();
+                RenderEnemy();
                 currentState = BattleStates.PLAYERCHOICE;
                 break;
             }
@@ -81,21 +83,22 @@ public class CombatStateMachine : MonoBehaviour
             case (BattleStates.CALCDMG):
             {
                 //Player always gets priority
-                //Debug.Log(GameInfo.Chp);
+                Debug.Log("MC Current HP: " + GameInfo.Chp);
+                Debug.Log("MC Current MP: " + GameInfo.Cmp);
+                Debug.Log("Enemy Current HP: " + newEnemy.Chp);
+                Debug.Log("Enemy Current MP: " + newEnemy.Cmp);
+
                 //If self-cast, subtract the negative damage from oneself
                 if (GameInfo.abilityDict[playerAtk].SelfCast)
                     GameInfo.Chp -= GameInfo.abilityDict[playerAtk].AbilityDamage;
                 else
                     newEnemy.Chp -= GameInfo.abilityDict[playerAtk].AbilityDamage;
 
-                Debug.Log(GameInfo.Chp);
-
                 if (GameInfo.abilityDict[enemyAtk].SelfCast)
                     newEnemy.Chp -= GameInfo.abilityDict[enemyAtk].AbilityDamage;
                 else
                     GameInfo.Chp -= GameInfo.abilityDict[enemyAtk].AbilityDamage;
 
-                
                 if (newEnemy.Chp <= 0)
                     currentState = BattleStates.WIN;
                 else if (GameInfo.Chp <= 0)
@@ -107,21 +110,19 @@ public class CombatStateMachine : MonoBehaviour
             case (BattleStates.LOSE):
             {
                 //Insert lose functions here
-                //Debug.Log("Game Over!");
+                Debug.Log("Game Over!");
                 break;
             }
             case (BattleStates.WIN):
             {
                 //Insert win battle functions here
-                //Debug.Log("You win! Go back to overworld.");
+                Debug.Log("You win! Go back to overworld.");
+                GameObject.Find("MC_Player").GetComponent<PlayerControls>().SceneResume();
+                Destroy(GameInfo.CurrentEnemy);
+                SceneManager.UnloadSceneAsync(2);
                 break;
             }
         }
-        if (GameInfo.Chp > 0 && newEnemy.Chp > 0)
-        {
-            //GUI.TextField
-        }
-
     }
 
     void OnGUI()
@@ -173,8 +174,9 @@ public class CombatStateMachine : MonoBehaviour
     {
         newEnemy.PlayerClass = new BaseEnemyClass();
         newEnemy.Level = Random.Range(GameInfo.PlayerLevel - 2, GameInfo.PlayerLevel + 3);
-        newEnemy.PlayerClass.CharClassName = GameInfo.currentEnemy;
-        Debug.Log(newEnemy.PlayerClass.CharClassName);
+        newEnemy.PlayerClass.CharClassName = GameInfo.CurrentEnemy.GetComponent<EnemyMetaData>().MobName;
+        Debug.Log("Battle: " + newEnemy.PlayerClass.CharClassName);
+
         newEnemy.PlayerClass.HealthPoints = Random.Range(0, 3) + 15;
         newEnemy.Chp = newEnemy.PlayerClass.HealthPoints;
         newEnemy.PlayerClass.MemePoints = Random.Range(0, 3) + 15;
@@ -185,12 +187,8 @@ public class CombatStateMachine : MonoBehaviour
     //Render enemy
     private void RenderEnemy()
     {
-        if (GameInfo.currentEnemy != null)
-            enemy.GetComponent<Animator>().Play(GameInfo.currentEnemy);
-        else
-            enemy.GetComponent<Animator>().Play("PepeDefault"); 
-        /*
-        switch (GameInfo.currentEnemy)
+        Animator temp = enemy.GetComponent<Animator>(); 
+        switch(newEnemy.PlayerClass.CharClassName)
         {
             case ("Hyoundag"):
             {
@@ -203,6 +201,5 @@ public class CombatStateMachine : MonoBehaviour
                 break;
             }
         }
-        */
     }
 }

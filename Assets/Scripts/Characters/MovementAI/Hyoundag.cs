@@ -11,10 +11,13 @@ public class Hyoundag : MonoBehaviour
     private bool isMoving;
     private Animator anim;
     private const string mobName = "Hyoundag";
+    private bool move = true;
 
     // Use this for initialization
     void Start()
     {
+        EnemyMetaData emd = this.gameObject.GetComponent<EnemyMetaData>();
+        emd.MobName = mobName;
         anim = GetComponent<Animator>();
     }
 
@@ -31,19 +34,11 @@ public class Hyoundag : MonoBehaviour
         Vector3 targetPos = new Vector3(followTarget.transform.position.x, followTarget.transform.position.y, 1);
 
         //Slow movement
-        if (distance <= 4 && distance > 1.25)
+        if (distance <= 4 && distance > 1.1 && move)
         {
             //(a, b, c). If c is closer to 1, it'll get closer to b, which is Mr. Chapter
             isMoving = true;
             this.transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
-        }
-        else if (distance <= 1)
-        {
-            /*
-            Debug.Log("TRIGGERED");
-            GameInfo.currentEnemy = mobName;
-            SceneManager.LoadScene(2);
-            */
         }
 
         anim.SetBool("isMoving", isMoving);
@@ -53,13 +48,7 @@ public class Hyoundag : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.name == "MC_Player")
-        {
-            Debug.Log("Collided with MC!");
-            /*
-            GameInfo.currentEnemy = mobName;
-            SceneManager.LoadScene(2);
-            */
-        }
+        if(collision.gameObject.name == "MC_Player")
+            move = false;
     }
 }

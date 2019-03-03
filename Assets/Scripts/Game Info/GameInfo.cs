@@ -10,25 +10,24 @@ public class GameInfo : MonoBehaviour
     //Launches before Start()
     private void Awake()
     {
-        InitAbilityDict();
         DontDestroyOnLoad(transform.gameObject);
     }
 
-    public static string PlayerName { get; set; }
-    public static int PlayerLevel { get; set; }
-    public static BaseCharClass PlayerClass { get; set; }
-    //Current and total health and meme points
-    public static int Thp { get; set; }
-    public static int Tmp { get; set; }
-    public static int Chp { get; set; }
-    public static int Cmp { get; set; }
-    public static int[] MovesetIDs { get; set; }
-    public static string currentEnemy = null;
+    public static string PlayerName;
+    public static int PlayerLevel;
+    public static BaseCharClass PlayerClass;
+    public static int Thp;
+    public static int Tmp;
+    public static int Chp;
+    public static int Cmp;
+    public static int[] MovesetIDs;
+    public static GameObject CurrentEnemy;
+    public static Vector3 MCPos;
 
     //Initialize the variables for a new game
     public static void NewGame()
     {
-        //Temporary. Put this function somewhere whenever the game starts
+        InitAbilityDict();
         PlayerClass = new BaseFirstClass();
         PlayerLevel = 1;
         PlayerName = PlayerClass.CharClassName;

@@ -377,7 +377,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 861510722}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4, y: -0.55, z: 0}
+  m_LocalPosition: {x: -0.29, y: -0.65, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -426,6 +426,22 @@ PrefabInstance:
     - target: {fileID: 100000, guid: be9b70143a9b7a74eb5bcfecc176c183, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: be9b70143a9b7a74eb5bcfecc176c183, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: be9b70143a9b7a74eb5bcfecc176c183, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100010, guid: be9b70143a9b7a74eb5bcfecc176c183, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: be9b70143a9b7a74eb5bcfecc176c183, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: be9b70143a9b7a74eb5bcfecc176c183, type: 3}
       propertyPath: m_LocalPosition.x
@@ -478,6 +494,10 @@ PrefabInstance:
     - target: {fileID: 400000, guid: be9b70143a9b7a74eb5bcfecc176c183, type: 3}
       propertyPath: m_LocalScale.y
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: be9b70143a9b7a74eb5bcfecc176c183, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6600000, guid: be9b70143a9b7a74eb5bcfecc176c183, type: 3}
       propertyPath: m_ColliderPaths.Array.size
@@ -639,6 +659,22 @@ PrefabInstance:
       propertyPath: m_ColliderPaths.Array.data[2].m_ColliderPaths.Array.data[0].Array.data[2].Y
       value: -409570304
       objectReference: {fileID: 0}
+    - target: {fileID: 100008, guid: be9b70143a9b7a74eb5bcfecc176c183, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100012, guid: be9b70143a9b7a74eb5bcfecc176c183, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100014, guid: be9b70143a9b7a74eb5bcfecc176c183, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100016, guid: be9b70143a9b7a74eb5bcfecc176c183, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6000000, guid: be9b70143a9b7a74eb5bcfecc176c183, type: 3}
       propertyPath: m_UsedByComposite
       value: 0
@@ -720,7 +756,7 @@ Camera:
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
-  m_AllowMSAA: 1
+  m_AllowMSAA: 0
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
@@ -803,7 +839,7 @@ GameObject:
   - component: {fileID: 1517778517}
   - component: {fileID: 1517778516}
   - component: {fileID: 1517778515}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -902,7 +938,7 @@ GameObject:
   - component: {fileID: 1537360855}
   - component: {fileID: 1537360854}
   - component: {fileID: 1537360853}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Fade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -999,9 +1035,10 @@ GameObject:
   - component: {fileID: 1870973905}
   - component: {fileID: 1870973906}
   - component: {fileID: 1870973904}
+  - component: {fileID: 1870973908}
   m_Layer: 0
   m_Name: hyoundag_0
-  m_TagString: Untagged
+  m_TagString: EnemyTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1164,6 +1201,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &1870973908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1870973900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4fdda93ff6e63641a6925660bc351da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MobName: 
 --- !u!1 &1896573473
 GameObject:
   m_ObjectHideFlags: 0
