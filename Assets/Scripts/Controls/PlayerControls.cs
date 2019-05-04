@@ -66,19 +66,19 @@ public class PlayerControls : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Collided");
+        //Debug.Log("Collided");
         GameObject go = collision.gameObject;
 
         //Interactable Object
         if(go.tag.Equals("Interactable"))
         {
-            Debug.Log("Interactable");
+            //Debug.Log("Interactable");
             curObj = go;
         }
         //Enemy Scene Change Trigger
         else if(go.tag.Equals("EnemyTrigger") && sceneChange)
         {
-            Debug.Log("Scene change");
+            //Debug.Log("Scene change");
             //GameInfo.CurrentEnemy = go.GetComponent<EnemyMetaData>().MobName;
             GameInfo.CurrentEnemy = go;
             GameInfo.MCPos = this.gameObject.transform.position;
@@ -95,7 +95,7 @@ public class PlayerControls : MonoBehaviour
     {
         if(collision.gameObject == curObj)
         {
-            Debug.Log("Left the range");
+            //Debug.Log("Left the range");
             curObj = null;
         }
     }

@@ -63,10 +63,12 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Characters\BaseCharClass.cs" />
     <Compile Include="Assets\Scripts\Characters\BaseEnemy.cs" />
-    <Compile Include="Assets\Scripts\Characters\BaseEnemyClass.cs" />
-    <Compile Include="Assets\Scripts\Characters\BaseFirstClass.cs" />
+    <Compile Include="Assets\Scripts\Characters\ChapterClass.cs" />
     <Compile Include="Assets\Scripts\Characters\EnemyMetaData.cs" />
-    <Compile Include="Assets\Scripts\Characters\MovementAI\Hyoundag.cs" />
+    <Compile Include="Assets\Scripts\Characters\HyoundagClass.cs" />
+    <Compile Include="Assets\Scripts\Characters\MovementAI\HyoundagAI.cs" />
+    <Compile Include="Assets\Scripts\Characters\PepeClass.cs" />
+    <Compile Include="Assets\Scripts\Characters\WojakClass.cs" />
     <Compile Include="Assets\Scripts\Combat\Abilities\BaseAbility.cs" />
     <Compile Include="Assets\Scripts\Combat\BattleStateStart.cs" />
     <Compile Include="Assets\Scripts\Combat\CombatGUI.cs" />

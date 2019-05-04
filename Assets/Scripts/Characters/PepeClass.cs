@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseFirstClass : BaseCharClass
+public class PepeClass : BaseCharClass
 {
-    public BaseFirstClass()
+    public PepeClass()
     {
         CharClassName = "Pepe the Frog";
-        CharClassDesc = "The Smuggest of the Smug.";
+        CharClassDesc = "The smuggest of the smug.";
         HealthPoints = 20;
         MemePoints = 20;
+        Moveset = new int[] { 0 };
     }
 }

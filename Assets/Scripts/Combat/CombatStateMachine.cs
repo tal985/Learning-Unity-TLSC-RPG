@@ -8,11 +8,11 @@ public class CombatStateMachine : MonoBehaviour
 {
     public static BattleStates currentState;
     public GameObject enemy;
-    private bool mainCombatMenu = true, hasClicked = false;
+    private bool hasClicked = false, ssj = false;
     private int difference = 0, playerAtk = -1, enemyAtk = -1;
     private Slider pSlider, eSlider;
-    private BaseEnemy newEnemy = new BaseEnemy();
-    //private string[] enemyNames = new string[] { "Wojack Horseman", "Wojak the Feels Guy", "Anon", "Definite Not Pepe" };
+    private BaseEnemy newEnemy;
+    public Button button_0, button_1, button_2, button_3, button_4;
 
     public enum BattleStates
     {
@@ -28,10 +28,27 @@ public class CombatStateMachine : MonoBehaviour
     void Start ()
     {
         currentState = BattleStates.START;
-	}
-	
-	// Update is called once per frame
-	void Update ()
+        button_0.onClick.AddListener(() => TaskOnClick(0));
+        button_1.onClick.AddListener(() => TaskOnClick(1));
+        button_2.onClick.AddListener(() => TaskOnClick(2));
+        button_3.onClick.AddListener(() => TaskOnClick(3));
+        button_4.onClick.AddListener(() => TaskOnClick(4));
+    }
+
+    void TaskOnClick(int num)
+    {
+        if(!hasClicked && currentState == BattleStates.PLAYERCHOICE && !ssj)
+        {
+            Debug.Log("Clicked button " + num);
+            hasClicked = true;
+            difference = GameInfo.Cmp - GameInfo.abilityDict[num].AbilityCost;
+            playerAtk = num;
+        }
+        //else if(!hasClicked && currentState == BattleStates.PLAYERCHOICE && ssj)
+    }
+
+    // Update is called once per frame
+    void Update ()
     {
         //Debug.Log(currentState);
 	    switch (currentState)
@@ -65,7 +82,6 @@ public class CombatStateMachine : MonoBehaviour
                     //Debug.Log("\nCurrent MP: " + GameInfo.Cmp);
                     difference = 0;
                     hasClicked = false;
-                    mainCombatMenu = true;
                     currentState = BattleStates.ENEMYCHOICE;
                 }
                 break;
@@ -83,21 +99,36 @@ public class CombatStateMachine : MonoBehaviour
             case (BattleStates.CALCDMG):
             {
                 //Player always gets priority
+        
+
+                //If self-cast, subtract the negative damage from oneself
+                //if (GameInfo.abilityDict[playerAtk].SelfCast)
+                //    GameInfo.Chp -= GameInfo.abilityDict[playerAtk].AbilityDamage;
+                //else
+                //    newEnemy.Chp -= GameInfo.abilityDict[playerAtk].AbilityDamage;
+                //if (GameInfo.abilityDict[enemyAtk].SelfCast)
+                //    newEnemy.Chp -= GameInfo.abilityDict[enemyAtk].AbilityDamage;
+                //else
+                //    GameInfo.Chp -= GameInfo.abilityDict[enemyAtk].AbilityDamage;
+
+                //Process MC move
+                BaseAbility tempAtk = GameInfo.abilityDict[playerAtk];
+                GameInfo.Chp += tempAtk.AbilityHeal;
+                GameInfo.Cmp -= tempAtk.AbilityCost;
+                newEnemy.Chp -= tempAtk.AbilityDamage;
+
+                //Add special code for block
+
+                //Process enemy move
+                tempAtk = GameInfo.abilityDict[enemyAtk];
+                newEnemy.Chp += tempAtk.AbilityHeal;
+                newEnemy.Cmp -= tempAtk.AbilityCost;
+                GameInfo.Chp -= tempAtk.AbilityDamage;
+
                 Debug.Log("MC Current HP: " + GameInfo.Chp);
                 Debug.Log("MC Current MP: " + GameInfo.Cmp);
                 Debug.Log("Enemy Current HP: " + newEnemy.Chp);
                 Debug.Log("Enemy Current MP: " + newEnemy.Cmp);
-
-                //If self-cast, subtract the negative damage from oneself
-                if (GameInfo.abilityDict[playerAtk].SelfCast)
-                    GameInfo.Chp -= GameInfo.abilityDict[playerAtk].AbilityDamage;
-                else
-                    newEnemy.Chp -= GameInfo.abilityDict[playerAtk].AbilityDamage;
-
-                if (GameInfo.abilityDict[enemyAtk].SelfCast)
-                    newEnemy.Chp -= GameInfo.abilityDict[enemyAtk].AbilityDamage;
-                else
-                    GameInfo.Chp -= GameInfo.abilityDict[enemyAtk].AbilityDamage;
 
                 if (newEnemy.Chp <= 0)
                     currentState = BattleStates.WIN;
@@ -117,9 +148,9 @@ public class CombatStateMachine : MonoBehaviour
             {
                 //Insert win battle functions here
                 Debug.Log("You win! Go back to overworld.");
-                GameObject.Find("MC_Player").GetComponent<PlayerControls>().SceneResume();
-                Destroy(GameInfo.CurrentEnemy);
-                SceneManager.UnloadSceneAsync(2);
+                //GameObject.Find("MC_Player").GetComponent<PlayerControls>().SceneResume();
+                //Destroy(GameInfo.CurrentEnemy);
+                //SceneManager.UnloadSceneAsync(2);
                 break;
             }
         }
@@ -127,68 +158,46 @@ public class CombatStateMachine : MonoBehaviour
 
     void OnGUI()
     {
-        if (currentState == BattleStates.PLAYERCHOICE)
-        {
-            if(mainCombatMenu)
-            {
-                if (GUI.Button(new Rect(50, Screen.height - 100, 100, 30), "Attack"))
-                    mainCombatMenu = false;
-            }
-            else
-            {
-                if (GUI.Button(new Rect(50, Screen.height - 150, 100, 30), "Back"))
-                    mainCombatMenu = true;
 
-                //TODO: set playerAtk and enemyAtk to the values at the index instead; manually setting atm
-                //Ability 0 should always be the basic attack, which has no cost
-                else if (GUI.Button(new Rect(50, Screen.height - 100, 100, 30), GameInfo.abilityDict[0].AbilityName))
-                {
-                    hasClicked = true;
-                    difference = 0;
-                    playerAtk = 0;
-                }
-                else if (GUI.Button(new Rect(200, Screen.height - 100, 100, 30), GameInfo.abilityDict[1].AbilityName))
-                {
-                    hasClicked = true;
-                    difference = GameInfo.Cmp - GameInfo.abilityDict[1].AbilityCost;
-                    playerAtk = 1;
-                }
-                else if (GUI.Button(new Rect(50, Screen.height - 50, 100, 30), GameInfo.abilityDict[2].AbilityName))
-                {
-                    hasClicked = true;
-                    difference = GameInfo.Cmp - GameInfo.abilityDict[2].AbilityCost;
-                    playerAtk = 2;
-                }
-                else if (GUI.Button(new Rect(200, Screen.height - 50, 100, 30), GameInfo.abilityDict[3].AbilityName))
-                {
-                    hasClicked = true;
-                    difference = GameInfo.Cmp - GameInfo.abilityDict[3].AbilityCost;
-                    playerAtk = 3;
-                }
-            }
-        }
     }
 
     //Create enemy
     private void CreateNewEnemy()
     {
-        newEnemy.PlayerClass = new BaseEnemyClass();
-        newEnemy.Level = Random.Range(GameInfo.PlayerLevel - 2, GameInfo.PlayerLevel + 3);
-        newEnemy.PlayerClass.CharClassName = GameInfo.CurrentEnemy.GetComponent<EnemyMetaData>().MobName;
-        Debug.Log("Battle: " + newEnemy.PlayerClass.CharClassName);
-
-        newEnemy.PlayerClass.HealthPoints = Random.Range(0, 3) + 15;
-        newEnemy.Chp = newEnemy.PlayerClass.HealthPoints;
-        newEnemy.PlayerClass.MemePoints = Random.Range(0, 3) + 15;
-        newEnemy.Cmp = newEnemy.PlayerClass.MemePoints;
-        newEnemy.MovesetIDs = new int[] { 0 };
+        //Adjust level later if game gets far enough
+        if(GameInfo.CurrentEnemy == null)
+        {
+            newEnemy = new BaseEnemy(new PepeClass());
+        }
+        else
+        {
+            string curEnemyName = GameInfo.CurrentEnemy.GetComponent<EnemyMetaData>().MobName;
+            Debug.Log(curEnemyName);
+            switch(curEnemyName)
+            {
+                case("Hyoundag"):
+                { 
+                    newEnemy = new BaseEnemy(new HyoundagClass());
+                    break;
+                }
+                default:
+                {
+                    newEnemy = new BaseEnemy(new PepeClass());
+                    break;
+                }
+            }
+        }
+        Debug.Log("MC Current HP: " + GameInfo.Chp);
+        Debug.Log("MC Current MP: " + GameInfo.Cmp);
+        Debug.Log("Enemy Current HP: " + newEnemy.Chp);
+        Debug.Log("Enemy Current MP: " + newEnemy.Cmp);
     }
     
     //Render enemy
     private void RenderEnemy()
     {
-        Animator temp = enemy.GetComponent<Animator>(); 
-        switch(newEnemy.PlayerClass.CharClassName)
+        Animator temp = enemy.GetComponent<Animator>();
+        switch(newEnemy.Name)
         {
             case ("Hyoundag"):
             {

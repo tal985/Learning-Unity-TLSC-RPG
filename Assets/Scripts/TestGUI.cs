@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TestGUI : MonoBehaviour
 {
-    private BaseCharClass pepe = new BaseFirstClass();
+    private BaseCharClass pepe = new PepeClass();
 
 	// Use this for initialization
 	void Start ()

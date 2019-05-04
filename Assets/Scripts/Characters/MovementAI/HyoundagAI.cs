@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Hyoundag : MonoBehaviour
+public class HyoundagAI : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject followTarget;

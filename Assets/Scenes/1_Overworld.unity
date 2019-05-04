@@ -1160,7 +1160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   followTarget: {fileID: 641732530}
-  moveSpeed: 1.5
+  moveSpeed: 1
 --- !u!95 &1870973906
 Animator:
   serializedVersion: 3

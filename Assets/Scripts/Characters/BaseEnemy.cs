@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class BaseEnemy
 {
-    protected BaseCharClass playerClass;
-    protected int level;
-    protected int[] movesetIDs;
-    protected int chp, cmp;
+    public string Name;
+    public int[] MovesetIDs;
+    public int Level, Chp, Cmp, Thp, Tmp;
 
-    public BaseCharClass PlayerClass { get; set; }
-    public int Level { get; set; }
-    public int Chp { get; set; }
-    public int Cmp { get; set; }
-    public int[] MovesetIDs { get; set; }
+    public BaseEnemy(BaseCharClass newEnemy)
+    {
+        Level = 1;
+        Thp = newEnemy.HealthPoints;
+        Chp = Thp;
+        Tmp = newEnemy.MemePoints;
+        Cmp = Tmp;
+        Name = newEnemy.CharClassName;
+        MovesetIDs = newEnemy.Moveset;
+    }
 }

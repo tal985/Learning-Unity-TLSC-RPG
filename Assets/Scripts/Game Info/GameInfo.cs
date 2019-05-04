@@ -28,15 +28,14 @@ public class GameInfo : MonoBehaviour
     public static void NewGame()
     {
         InitAbilityDict();
-        PlayerClass = new BaseFirstClass();
+        PlayerClass = new ChapterClass();   
         PlayerLevel = 1;
         PlayerName = PlayerClass.CharClassName;
         Thp = PlayerClass.HealthPoints;
         Tmp = PlayerClass.MemePoints;
         Chp = Thp;
         Cmp = Tmp;
-        MovesetIDs = new int[] { 0, 1, 2, 3 };
-
+        MovesetIDs = PlayerClass.Moveset;
         /*
         Debug.Log("Game Info Name: " + PlayerName);
         Debug.Log("Game Info Level: " + PlayerLevel);
@@ -47,6 +46,9 @@ public class GameInfo : MonoBehaviour
     }
 
     //Initialize dictionary with abilities
+    // 0 - 4 are MC's regular abilities
+    // 5 - 9 are MC's super saiyan abilities
+    // 10 - ???
     public static void InitAbilityDict()
     {
         //Basic Attack
@@ -57,40 +59,53 @@ public class GameInfo : MonoBehaviour
                 AbilityDesc = "A basic attack",
                 AbilityCost = 0,
                 AbilityDamage = 5,
-                SelfCast = false
+                AbilityHeal = 0
             });
 
-        //Heal
+        //Block
         abilityDict.Add(1,
             new BaseAbility
             {
-                AbilityName = "Heal I",
-                AbilityDesc = "A small heal",
-                AbilityCost = 5,
-                AbilityDamage = -5,
-                SelfCast = true
+                AbilityName = "Block",
+                AbilityDesc = "Negates a portion of incoming damage.",
+                AbilityCost = 0,
+                AbilityDamage = 0,
+                AbilityHeal = 0
             });
 
-        //Spell 1
+        //Wisium Shot
         abilityDict.Add(2,
             new BaseAbility
             {
-                AbilityName = "Spell",
-                AbilityDesc = "A generic spell",
+                AbilityName = "Wisium Shot",
+                AbilityDesc = "A wisium projectile spell.",
                 AbilityCost = 5,
                 AbilityDamage = 10,
-                SelfCast = false
+                AbilityHeal = 0
             });
 
-        //Spell 2
+        //Heal
         abilityDict.Add(3,
             new BaseAbility
             {
-                AbilityName = "Spell II",
-                AbilityDesc = "A medium spell",
+                AbilityName = "Heal",
+                AbilityDesc = "A small heal.",
+                AbilityCost = 5,
+                AbilityDamage = 0,
+                AbilityHeal = 5
+            });
+
+        //Ultimate (Dash Attack)
+        abilityDict.Add(4,
+            new BaseAbility
+            {
+                AbilityName = "Dash",
+                AbilityDesc = "A dash attack.",
                 AbilityCost = 10,
                 AbilityDamage = 15,
-                SelfCast = false
+                AbilityHeal = -5
             });
+
+        
     }
 }
